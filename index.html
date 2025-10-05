@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthony Richard Romero Nuñez</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <main class="welcome-screen">
+        <div class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="close"></span>
+                    <span class="minimize"></span>
+                    <span class="maximize"></span>
+                </div>
+                <span class="terminal-title">system@portfolio:~</span>
+            </div>
+            <div class="terminal-body">
+                <div class="welcome-content">
+                    <h1 class="name-title">Anthony Richard Romero Nuñez</h1>
+                    <button id="viewPortfolio" class="terminal-btn">Ver Portafolio</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="hacker-icon">
+                <div class="terminal-animation">
+                    <div class="terminal-line">> Iniciando sistema...</div>
+                    <div class="terminal-line">> Cargando módulos de seguridad...</div>
+                    <div class="terminal-line">> Accediendo a base de datos...</div>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="loading-text">
+                    <span id="loadingMessage">Cargando Portafolio...</span>
+                    <span class="cursor">|</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
