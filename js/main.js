@@ -64,6 +64,9 @@ function initPortfolioPage() {
     
     // Aplicar efecto de escritura terminal a los títulos
     initTerminalTextEffect();
+    
+    // Inicializar terminal del footer
+    initTerminalFooter();
 }
 
 /**
@@ -88,6 +91,18 @@ function initTabNavigation() {
             const targetContent = document.getElementById(targetTab);
             if (targetContent) {
                 targetContent.classList.add('active');
+            }
+            
+            // Cerrar menú móvil si está abierto
+            const navList = document.getElementById('navList');
+            const hamburger = document.getElementById('hamburger');
+            if (navList && navList.classList.contains('active')) {
+                navList.classList.remove('active');
+                // Restablecer animación de hamburguesa
+                const spans = hamburger.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
             }
         });
     });
@@ -149,6 +164,59 @@ function initTerminalTextEffect() {
 }
 
 /**
+ * Inicializa la terminal interactiva del footer
+ */
+function initTerminalFooter() {
+    const typedCommandElement = document.querySelector('.typed-command');
+    const commands = [
+        'connect --social --github',
+        'send --email fendtn0@gmail.com',
+        'status --available --projects',
+        'help --contact --methods'
+    ];
+    
+    let currentCommand = 0;
+    let currentChar = 0;
+    let isDeleting = false;
+    let typingSpeed = 100;
+    
+    function type() {
+        const currentText = commands[currentCommand];
+        
+        if (isDeleting) {
+            // Eliminar caracter
+            typedCommandElement.textContent = currentText.substring(0, currentChar - 1);
+            currentChar--;
+            typingSpeed = 50;
+        } else {
+            // Escribir caracter
+            typedCommandElement.textContent = currentText.substring(0, currentChar + 1);
+            currentChar++;
+            typingSpeed = 100;
+        }
+        
+        // Cambiar entre escribir y eliminar
+        if (!isDeleting && currentChar === currentText.length) {
+            // Esperar al final del comando
+            typingSpeed = 2000;
+            isDeleting = true;
+        } else if (isDeleting && currentChar === 0) {
+            // Cambiar al siguiente comando
+            isDeleting = false;
+            currentCommand = (currentCommand + 1) % commands.length;
+            typingSpeed = 500;
+        }
+        
+        setTimeout(type, typingSpeed);
+    }
+    
+    // Iniciar efecto de escritura si el elemento existe
+    if (typedCommandElement) {
+        setTimeout(type, 1000);
+    }
+}
+
+/**
  * Función auxiliar para crear efecto de escritura en cualquier elemento
  * @param {HTMLElement} element - Elemento HTML donde aplicar el efecto
  * @param {string} text - Texto a escribir
@@ -167,40 +235,4 @@ function typeWriter(element, text, speed = 50) {
     }
     
     type();
-}
-// En la función initTabNavigation, actualizar para manejar las nuevas pestañas
-function initTabNavigation() {
-    const navButtons = document.querySelectorAll('.nav-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-    
-    navButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const targetTab = this.getAttribute('data-tab');
-            
-            // Remover clase active de todos los botones y contenidos
-            navButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-            
-            // Agregar clase active al botón clickeado
-            this.classList.add('active');
-            
-            // Mostrar el contenido correspondiente
-            const targetContent = document.getElementById(targetTab);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
-            
-            // Cerrar menú móvil si está abierto
-            const navList = document.getElementById('navList');
-            const hamburger = document.getElementById('hamburger');
-            if (navList && navList.classList.contains('active')) {
-                navList.classList.remove('active');
-                // Restablecer animación de hamburguesa
-                const spans = hamburger.querySelectorAll('span');
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
-            }
-        });
-    });
 }
