@@ -168,3 +168,39 @@ function typeWriter(element, text, speed = 50) {
     
     type();
 }
+// En la función initTabNavigation, actualizar para manejar las nuevas pestañas
+function initTabNavigation() {
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    navButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+            
+            // Remover clase active de todos los botones y contenidos
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Agregar clase active al botón clickeado
+            this.classList.add('active');
+            
+            // Mostrar el contenido correspondiente
+            const targetContent = document.getElementById(targetTab);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+            
+            // Cerrar menú móvil si está abierto
+            const navList = document.getElementById('navList');
+            const hamburger = document.getElementById('hamburger');
+            if (navList && navList.classList.contains('active')) {
+                navList.classList.remove('active');
+                // Restablecer animación de hamburguesa
+                const spans = hamburger.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+    });
+}
